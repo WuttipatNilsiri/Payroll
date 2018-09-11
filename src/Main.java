@@ -1,3 +1,4 @@
+import java.util.EnumMap;
 
 public class Main {
 	
@@ -15,6 +16,7 @@ public class Main {
 		employeeDB.get(3).sell();
 		employeeDB.get(3).sell();
 		employeeDB.get(3).sell();
+		changeEmployee(3, EmployeeType.Hourly , "100");
 		
 		while(true) {
 			time++;
@@ -94,5 +96,18 @@ public class Main {
 		return null;
 	}
 	
+	public static void deleteEmployee(int id) {
+		Employee emp = employeeDB.get(id);
+		bankAccountDB.delete(emp.getBankAccountID());
+		payrollDB.delete(emp.getType(), emp.getID());
+		employeeDB.delete(id);	
+	}
+	
+	public static void changeEmployee(int id, EmployeeType type,String money) {
+		Employee emp = employeeDB.get(id);
+		payrollDB.delete(emp.getType(), emp.getID());
+		emp.setType(type);
+		payrollDB.addTransaction(createTransaction(emp, money), type);
+	}
 	
 }

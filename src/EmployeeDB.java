@@ -18,6 +18,10 @@ public class EmployeeDB {
 		mapEmp.put(emp.getID(), emp);
 	}
 	
+	public void delete(int id) {
+		mapEmp.remove(id);
+	}
+	
 	public Employee get(int id) {
 		return mapEmp.get(id);
 	}

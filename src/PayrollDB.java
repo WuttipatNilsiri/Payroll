@@ -1,15 +1,16 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 
 public class PayrollDB {
 	
-	List<Transaction> listComissioned = new ArrayList<Transaction>();
-	List<Transaction> listHourly = new ArrayList<Transaction>();
-	List<Transaction> listSalaried = new ArrayList<Transaction>();
+	Map<Integer,Transaction> listComissioned = new HashMap<Integer,Transaction>();
+	Map<Integer,Transaction> listHourly = new HashMap<Integer,Transaction>();
+	Map<Integer,Transaction> listSalaried = new HashMap<Integer,Transaction>();
 	
-	Map<EmployeeType,List<Transaction>> mapQ = new HashMap<EmployeeType,List<Transaction>>();
+	
+	
+	Map<EmployeeType, Map<Integer,Transaction> > mapQ = new HashMap<EmployeeType, Map<Integer,Transaction> >();
 	
 	static PayrollDB db = null;
 	
@@ -27,13 +28,17 @@ public class PayrollDB {
 	}
 	
 	public void addTransaction(Transaction t,EmployeeType type) {
-		mapQ.get(type).add(t);
+		mapQ.get(type).put(t.getID(), t);
 	}
 	
 	public void trans(EmployeeType type) {
-		for (Transaction t : mapQ.get(type)) {
+		for (Transaction t : mapQ.get(type).values()) {
 			t.Execute();
 		}
+	}
+	
+	public void delete(EmployeeType e,int id) {
+		mapQ.get(e).remove(id);
 	}
 	
 	

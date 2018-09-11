@@ -17,4 +17,8 @@ public abstract class EmployeeTransaction implements Transaction {
 	
 	public abstract void Execute();
 	
+	
+	public int getID() {
+		return id;
+	}
 }

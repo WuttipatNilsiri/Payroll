@@ -27,4 +27,8 @@ public class BankAccountDB {
 	public Collection<BankAccount> getAllBankAcc() {
 		return mapAcc.values();
 	}
+	
+	public void delete(int id) {
+		mapAcc.remove(id);
+	}
 }
