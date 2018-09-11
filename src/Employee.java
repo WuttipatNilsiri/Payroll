@@ -49,5 +49,8 @@ public class Employee {
 		return num_sell_Item;
 	}
 	
+	public void reset_Num_Sell_Item() {
+		num_sell_Item = 0;
+	}
 	
 }

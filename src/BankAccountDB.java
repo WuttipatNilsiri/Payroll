@@ -1,4 +1,6 @@
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BankAccountDB {
@@ -21,5 +23,8 @@ public class BankAccountDB {
 	public BankAccount get(int id) {
 		return mapAcc.get(id);
 	}
-	 
+	
+	public Collection<BankAccount> getAllBankAcc() {
+		return mapAcc.values();
+	}
 }

@@ -18,4 +18,8 @@ public class BankAccount {
 		bal = bal + amount;
 //		System.out.println("id="+id+" " + bal);
 	}
+	
+	public double getBalance() {
+		return bal;
+	}
 }

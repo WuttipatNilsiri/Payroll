@@ -1,22 +1,20 @@
 
 public class Main {
 	
-	static int id = 0;
-	
-	
-	
 	static PayrollDB payrollDB = PayrollDB.getDB();
 	static BankAccountDB bankAccountDB = BankAccountDB.getDB();
 	static EmployeeDB employeeDB = EmployeeDB.getDB();
 	
 	public static void main(String[] a) {
+		
 		int time = 0;
 		
-		addEmployee("Rinne", "Urashima",EmployeeType.Salaried, "1000" );
-		addEmployee("Rinbe", "Urashima",EmployeeType.Hourly, "10" );
-		
-		
-		
+		addEmployee(1,"Rinne", "Urashima",EmployeeType.Salaried, "1000" );
+		addEmployee(2,"Rinbe", "Urashima",EmployeeType.Hourly, "10" );
+		addEmployee(3, "kuy", "aasd", EmployeeType.Commissioned, "1000 10");
+		employeeDB.get(3).sell();
+		employeeDB.get(3).sell();
+		employeeDB.get(3).sell();
 		
 		while(true) {
 			time++;
@@ -26,9 +24,13 @@ public class Main {
 			}
 			if (time % (60*3) == 0) {
 				payrollDB.trans(EmployeeType.Salaried);
+				payrollDB.trans(EmployeeType.Commissioned);
 			}
-			System.out.println("id=2 "+bankAccountDB.get(2).bal);
-			System.out.println("id=1 "+bankAccountDB.get(1).bal);
+			
+			for (BankAccount acc : BankAccountDB.getDB().getAllBankAcc()) {
+				System.out.println("id="+acc.getID()+" bal="+acc.getBalance());
+			}
+			
 			System.out.println("--------------");
 			try {
 				Thread.sleep(200);
@@ -40,8 +42,7 @@ public class Main {
 		
 	}
 	
-	public static void addEmployee(String name, String address,EmployeeType type, String money) {
-		id++;
+	public static void addEmployee(int id, String name, String address,EmployeeType type, String money) {
 		BankAccount A_BankAcc = new BankAccount(id, name);
 		Employee A = new Employee(id, name, address, id);
 		A.setType(type);
