@@ -37,6 +37,10 @@ public class Employee {
 		this.type = type;
 	}
 	
+	public void setBankAccID(int id) {
+		bankAccountID = id;
+	}
+	
 	public EmployeeType getType() {
 		return type;
 	}
@@ -52,5 +56,7 @@ public class Employee {
 	public void reset_Num_Sell_Item() {
 		num_sell_Item = 0;
 	}
+	
+	
 	
 }

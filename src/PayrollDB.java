@@ -1,6 +1,7 @@
 import java.util.HashMap;
 
 import java.util.Map;
+import java.util.Set;
 
 public class PayrollDB {
 	
@@ -40,6 +41,13 @@ public class PayrollDB {
 	public void delete(EmployeeType e,int id) {
 		mapQ.get(e).remove(id);
 	}
+	
+	public Set<EmployeeType> getKey(){
+		return mapQ.keySet();
+		
+	}
+	
+	
 	
 	
 }
