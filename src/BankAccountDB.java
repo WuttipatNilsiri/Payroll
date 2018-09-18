@@ -4,9 +4,9 @@ import java.util.Map;
 
 public class BankAccountDB {
 	
-	Map<Integer, BankAccount> mapAcc = new HashMap<Integer, BankAccount>();
+	private Map<String, BankAccount> mapAcc = new HashMap<String, BankAccount>();
 	
-	static BankAccountDB db = null;
+	private static BankAccountDB db = null;
 	
 	public static BankAccountDB getDB() {
 		if(db == null) {
@@ -19,7 +19,7 @@ public class BankAccountDB {
 		mapAcc.put(acc.getID(), acc);
 	}
 	
-	public BankAccount get(int id) {
+	public BankAccount get(String id) {
 		return mapAcc.get(id);
 	}
 	
@@ -27,7 +27,7 @@ public class BankAccountDB {
 		return mapAcc.values();
 	}
 	
-	public void delete(int id) {
+	public void delete(String id) {
 		mapAcc.remove(id);
 	}
 }

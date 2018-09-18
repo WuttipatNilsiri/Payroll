@@ -3,9 +3,9 @@ import java.util.Map;
 
 public class EmployeeDB {
 	
-	Map<Integer, Employee> mapEmp = new HashMap<Integer, Employee>();
+	private Map<Integer, Employee> mapEmp = new HashMap<Integer, Employee>();
 	
-	static EmployeeDB db = null;
+	private static EmployeeDB db = null;
 	
 	public static EmployeeDB getDB() {
 		if(db == null) {

@@ -1,13 +1,13 @@
 
 public abstract class EmployeeTransaction implements Transaction {
 	
-	int id;
-	String address;
-	String name;
+	protected int id;
+	private String address;
+	private String name;
 	
-	EmployeeDB empDB = EmployeeDB.getDB();
+	protected EmployeeDB empDB = EmployeeDB.getDB();
 	
-	BankAccountDB bankDB = BankAccountDB.getDB();
+	protected BankAccountDB bankDB = BankAccountDB.getDB();
 	
 	public EmployeeTransaction(int id, String address, String name) {
 		this.id = id;

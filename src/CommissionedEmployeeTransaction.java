@@ -1,9 +1,9 @@
 
 public class CommissionedEmployeeTransaction extends EmployeeTransaction {
 	
-	double salary;
+	private double salary;
 	
-	double commissionRATE;
+	private double commissionRATE;
 	
 	public CommissionedEmployeeTransaction(int id, String address, String name, double salary, double commissionRATE) {
 		super(id, address, name);

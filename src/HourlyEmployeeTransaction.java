@@ -1,7 +1,7 @@
 
 public class HourlyEmployeeTransaction extends EmployeeTransaction {
 	
-	double hourlyRate;
+	private double hourlyRate;
 	
 	public HourlyEmployeeTransaction(int id, String address, String name, double hourlyRate) {
 		super(id, address, name);

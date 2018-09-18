@@ -3,7 +3,9 @@ import java.util.Map;
 
 public class ChangeEmployeeType implements Command {
 
-	Map<String,String> mapInput = new HashMap<String,String>();
+	private Map<String,String> mapInput = new HashMap<String,String>();
+	
+	private Payroll sys = Payroll.getSystem();
 	
 	public boolean isValid() {
 		// TODO Auto-generated method stub
@@ -25,10 +27,16 @@ public class ChangeEmployeeType implements Command {
 
 	
 	public void exec() {
+		
+		if (!isValid()) {
+			throw new IllegalArgumentException("Some Arg are missing");
+		}
+		
 		int id = Integer.parseInt(mapInput.get("id"));
 		EmployeeType type = Util.char2type(mapInput.get("type"));
 		String money = mapInput.get("money");
-		Payroll.changeEmployee(id, type, money);
+		sys.changeEmployee(id, type, money);
+		mapInput.clear();
 	}
 	
 }

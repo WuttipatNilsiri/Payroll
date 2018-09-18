@@ -3,7 +3,9 @@ import java.util.Map;
 
 public class DeleteEmployee implements Command {
 
-	Map<String,String> mapInput = new HashMap<String,String>();
+	private Map<String,String> mapInput = new HashMap<String,String>();
+	
+	private Payroll sys = Payroll.getSystem();
 	
 	public boolean isValid() {
 		// TODO Auto-generated method stub
@@ -21,8 +23,14 @@ public class DeleteEmployee implements Command {
 
 	
 	public void exec() {
+		
+		if (!isValid()) {
+			throw new IllegalArgumentException("Some Arg are missing");
+		}
+		
 		int id = Integer.parseInt(mapInput.get("id"));
-		Payroll.deleteEmployee(id);
+		sys.deleteEmployee(id);
+		mapInput.clear();
 	}
 	
 }

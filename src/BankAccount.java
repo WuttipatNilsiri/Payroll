@@ -1,16 +1,17 @@
 
 public class BankAccount {
-	int id;
-	String name;
-	double bal;
 	
-	public BankAccount(int id, String name){
+	private String id;
+	private String name;
+	private double bal;
+	
+	public BankAccount(String id, String name){
 		this.id = id;
 		this.name = name;
 		bal = 0.0;
 	}
 	
-	public int getID() {
+	public String getID() {
 		return id;
 	}
 	
@@ -21,5 +22,13 @@ public class BankAccount {
 	
 	public double getBalance() {
 		return bal;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String toString() {
+		return String.format("bankid=%s name=%s bal=%.2f", id,name,bal);
 	}
 }

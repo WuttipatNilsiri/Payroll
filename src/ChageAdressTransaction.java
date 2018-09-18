@@ -3,18 +3,23 @@ import java.util.Map;
 
 public class ChageAdressTransaction implements Command {
 
-	Map<String,String> mapInput = new HashMap<String,String>();
+	private Map<String,String> mapInput = new HashMap<String,String>();
+	
+	private Payroll sys = Payroll.getSystem();
 	
 	public boolean isValid() {
 		// TODO Auto-generated method stub
 		return 
 				Util.isValueValid(mapInput, "id") &&
 				
-				Util.isValueValid(mapInput, "bankAccount");
+				Util.isValueValid(mapInput, "address");
 				
 	}
-
 	
+	
+	/**
+	 * id=<id> address=<address>
+	 */
 	public void input(String input) {
 		for (String x : input.split(" ")) {
 			String[] arg = x.split("=");
@@ -24,9 +29,14 @@ public class ChageAdressTransaction implements Command {
 
 	
 	public void exec() {
+		if (!isValid()) {
+			throw new IllegalArgumentException("Some Arg are missing");
+		}
 		int empid = Integer.parseInt(mapInput.get("id"));	
-		int bankid = Integer.parseInt(mapInput.get("bankAccount"));
-		Payroll.changeAddressTransaction(empid, bankid );
+		String bankid = mapInput.get("address");
+		sys.changeAddressTransaction(empid, bankid );
+		mapInput.clear();
 	}
+	
 	
 }

@@ -1,19 +1,19 @@
 
 public class Employee {
 	
-	int id;
-	String address;
-	String name;
-	int bankAccountID;
+	private int id;
 	
-	int  num_sell_Item = 0;
+	private String name;
+	private String bankAccountID;
 	
-	EmployeeType type = EmployeeType.Unknown;
+	private int  num_sell_Item = 0;
 	
-	public Employee(int id, String name, String address, int bankAccountID){
+	private EmployeeType type = EmployeeType.Unknown;
+	
+	public Employee(int id, String name, String bankAccountID){
 		this.id = id;
 		this.name = name;
-		this.address = address;
+		
 		this.bankAccountID = bankAccountID;
 	}
 	
@@ -25,11 +25,11 @@ public class Employee {
 		return name;
 	}
 	
-	public String getAddress() {
-		return address;
-	}
+//	public String getAddress() {
+//		return address;
+//	}
 	
-	public int getBankAccountID() {
+	public String getBankAccountID() {
 		return bankAccountID;
 	}
 	
@@ -37,7 +37,7 @@ public class Employee {
 		this.type = type;
 	}
 	
-	public void setBankAccID(int id) {
+	public void setBankAccID(String id) {
 		bankAccountID = id;
 	}
 	

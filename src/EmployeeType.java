@@ -1,5 +1,6 @@
 
 public enum EmployeeType {
+	
 	Unknown(0),
 	Hourly(60),
 	Salaried(180),

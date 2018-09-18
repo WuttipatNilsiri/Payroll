@@ -6,23 +6,42 @@ public class Main {
 	static EmployeeDB employeeDB = EmployeeDB.getDB();
 	
 	public static void main(String[] a ) {
-		Payroll payroll = new Payroll();
-		payroll.build();
-		Command test = new AddEmployeeTransaction();
-		test.input("name=Rinne id=1 address=Urashima type=H money=10");
-		System.out.println(test.isValid());
-		test.exec();
-		Command test2 = new ChageAdressTransaction();
-		test2.input("id=1 bankAccount=2");
-		test2.exec();
-		Command test3 = new ChangeEmployeeType();
-		test3.input("id=1 type=C money=10000_10");
-		test3.exec();
+//		Payroll payroll = new Payroll();
+//		payroll.build();
+		
+		Command addEmpCMD = new AddEmployeeTransaction();
+		
+		addEmpCMD.input("name=Rinne1 id=1 address=1 type=H money=salary>10");
+//		System.out.println(test.isValid());
+		addEmpCMD.exec();
+//		System.out.println(test.isValid());
+//		
+		addEmpCMD.input("name=Rinne2 id=3 address=3 type=H money=salary>100");
+		addEmpCMD.exec();
+		
+		addEmpCMD.input("name=Rinne3 id=4 address=4 type=H money=salary>1000");
+		addEmpCMD.exec();
+		
+		Command ChgAddCMD = new ChageAdressTransaction();
+		ChgAddCMD.input("id=1 address=2");
+		ChgAddCMD.exec();
+		
+		Command ChgEmpTypeCMD = new ChangeEmployeeType();
+		ChgEmpTypeCMD.input("id=1 type=C money=rate>10,salary>10000");
+		ChgEmpTypeCMD.exec();
+		
+		Command DltEmpCMD = new DeleteEmployee();
+//		test4.input("id=1");
+//		test4.exec();
+//		System.out.println(test4.isValid());
+		
 		employeeDB.get(1).sell();
 		employeeDB.get(1).sell();
 		employeeDB.get(1).sell();
 		
-		payroll.run();
+		
+		
+		Payroll.getSystem().run();
 		
 		
 //		Payroll payroll = new Payroll();

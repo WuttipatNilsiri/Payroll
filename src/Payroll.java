@@ -2,17 +2,27 @@
 
 public class Payroll {
 	
-	static PayrollDB payrollDB; 
-	static BankAccountDB bankAccountDB;
-	static EmployeeDB employeeDB;
+	private static PayrollDB payrollDB; 
+	private static BankAccountDB bankAccountDB;
+	private static EmployeeDB employeeDB;
 	
+	private static Payroll payrollSystem;
 	
-	
+	public Payroll() {
+		build();
+	}
 	
 	public void build() {
 		if (payrollDB == null) payrollDB = PayrollDB.getDB();
 		if (bankAccountDB == null) bankAccountDB = BankAccountDB.getDB();
 		if (employeeDB == null) employeeDB = EmployeeDB.getDB();
+	}
+	
+	public static Payroll getSystem() {
+		if (payrollSystem == null) {
+			payrollSystem = new Payroll();
+		}
+		return payrollSystem;
 	}
 	
 	
@@ -57,7 +67,7 @@ public class Payroll {
 			}
 			
 			for (BankAccount acc : BankAccountDB.getDB().getAllBankAcc()) {
-				System.out.println("id="+acc.getID()+" bal="+acc.getBalance());
+				System.out.println(acc.toString());
 			}
 			
 			System.out.println("--------------");
@@ -70,9 +80,9 @@ public class Payroll {
 		}
 	}
 	
-	public static void addEmployeeTransaction(int id, String name, String address,EmployeeType type, String money) {
-		BankAccount A_BankAcc = new BankAccount(id, name);
-		Employee A = new Employee(id, name, address, id);
+	public void addEmployeeTransaction(int id, String name, String address,EmployeeType type, String money) {
+		BankAccount A_BankAcc = new BankAccount(address, name);
+		Employee A = new Employee(id, name, address);
 		A.setType(type);
 		bankAccountDB.add(A_BankAcc);
 		employeeDB.add(A);
@@ -81,39 +91,70 @@ public class Payroll {
 	
 	private static Transaction createTransaction(Employee emp, String moneystring ) {
 		int id = emp.getID();
-		String add = emp.getAddress();
+		String add = emp.getBankAccountID();
 		String name = emp.getName();
 		EmployeeType type = emp.getType();
 		
-		String[] moneyStringSplit = moneystring.split("_");
+		String[] moneyStringSplit = moneystring.split(",");
+		
+		
+		
 		
 		
 		
 		try {
+			double salary = 0.0;
 			
-			double salary = Double.parseDouble(moneyStringSplit[0]);
+			for (String x : moneyStringSplit) {
+				if (x.contains("salary")) {
+					salary = Double.parseDouble(x.replace("salary>", ""));
+					break;
+				}
+			}
+			
+			if (salary == 0.0) {
+				throw new Exception("not define salary");
+			}
 			
 			if (type == EmployeeType.Commissioned) {
 				double rate = 0;
 				try {
 					
-					rate = Double.parseDouble(moneyStringSplit[1]);
+					for (String x : moneyStringSplit) {
+						if (x.contains("rate")) {
+							rate = Double.parseDouble(x.replace("rate>", ""));
+							break;
+						}
+					}
+					
+					if (rate == 0.0) {
+						throw new IllegalArgumentException("not define rate");
+					}
+					
+//					rate = Double.parseDouble(moneyStringSplit[1].replace("rate>",""));
 					return new CommissionedEmployeeTransaction(id, name, add, salary, rate);
 				
-				} catch(IndexOutOfBoundsException e) {
-					throw new IllegalArgumentException("need at least TWO arg for CommissionedEmployee");
+				} catch(IllegalArgumentException e) {
+					throw e;
 				}
 			}
 			
 			if (type == EmployeeType.Salaried) {
+				if (salary == 0.0) {
+					throw new Exception("not define salary");
+				}
 				return new SalariedEmployeeTransaction(id, add, name, salary);
 			}
 			
 			if (type == EmployeeType.Hourly) {
+				if (salary == 0.0) {
+					throw new Exception("not define salary");
+				}
 				return new SalariedEmployeeTransaction(id, add, name, salary);
 			}
-		} catch(IndexOutOfBoundsException e) {
-			throw new IllegalArgumentException("need at least ONE arg");
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			throw new IllegalArgumentException("Arg not OK");
 		}
 		
 		
@@ -122,21 +163,21 @@ public class Payroll {
 		return null;
 	}
 	
-	public static void deleteEmployee(int id) {
+	public void deleteEmployee(int id) {
 		Employee emp = employeeDB.get(id);
 		bankAccountDB.delete(emp.getBankAccountID());
 		payrollDB.delete(emp.getType(), emp.getID());
 		employeeDB.delete(id);	
 	}
 	
-	public static void changeEmployee(int id, EmployeeType type,String money) {
+	public void changeEmployee(int id, EmployeeType type,String money) {
 		Employee emp = employeeDB.get(id);
 		payrollDB.delete(emp.getType(), emp.getID());
 		emp.setType(type);
 		payrollDB.addTransaction(createTransaction(emp, money), type);
 	}
 	
-	public static void changeAddressTransaction(int empid,int bankid) {
+	public void changeAddressTransaction(int empid,String bankid) {
 		Employee emp = employeeDB.get(empid);
 		emp.setBankAccID(bankid);
 		bankAccountDB.delete(bankid);

@@ -5,9 +5,9 @@ import java.util.Set;
 
 public class PayrollDB {
 	
-	Map<Integer,Transaction> listComissioned = new HashMap<Integer,Transaction>();
-	Map<Integer,Transaction> listHourly = new HashMap<Integer,Transaction>();
-	Map<Integer,Transaction> listSalaried = new HashMap<Integer,Transaction>();
+	private Map<Integer,Transaction> listComissioned = new HashMap<Integer,Transaction>();
+	private Map<Integer,Transaction> listHourly = new HashMap<Integer,Transaction>();
+	private Map<Integer,Transaction> listSalaried = new HashMap<Integer,Transaction>();
 	
 	
 	
