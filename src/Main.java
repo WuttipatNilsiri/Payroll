@@ -23,7 +23,7 @@ public class Main {
 		addEmpCMD.exec();
 		
 		Command ChgAddCMD = new ChageAdressTransaction();
-		ChgAddCMD.input("id=1 address=2");
+		ChgAddCMD.input("id=1 address=3");
 		ChgAddCMD.exec();
 		
 		Command ChgEmpTypeCMD = new ChangeEmployeeType();

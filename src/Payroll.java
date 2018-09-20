@@ -179,8 +179,8 @@ public class Payroll {
 	
 	public void changeAddressTransaction(int empid,String bankid) {
 		Employee emp = employeeDB.get(empid);
+		bankAccountDB.delete(emp.getBankAccountID());
 		emp.setBankAccID(bankid);
-		bankAccountDB.delete(bankid);
 		bankAccountDB.add(new BankAccount(bankid, emp.getName()));
 	}
 	
