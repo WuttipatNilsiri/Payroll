@@ -23,6 +23,9 @@ public class EmployeeDB {
 	}
 	
 	public Employee get(int id) {
-		return mapEmp.get(id);
+		if (mapEmp.containsKey(id)){
+			return mapEmp.get(id);
+		}
+		return null;
 	}
 }

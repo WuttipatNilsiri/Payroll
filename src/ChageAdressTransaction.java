@@ -26,6 +26,8 @@ public class ChageAdressTransaction implements Command {
 			mapInput.put(arg[0], arg[1]);
 		}
 	}
+	
+	
 
 	
 	public void exec() {
@@ -34,7 +36,9 @@ public class ChageAdressTransaction implements Command {
 		}
 		int empid = Integer.parseInt(mapInput.get("id"));	
 		String bankid = mapInput.get("address");
+		
 		sys.changeAddressTransaction(empid, bankid );
+		
 		mapInput.clear();
 	}
 	

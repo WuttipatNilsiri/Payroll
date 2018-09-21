@@ -31,4 +31,8 @@ public class BankAccount {
 	public String toString() {
 		return String.format("bankid=%s name=%s bal=%.2f", id,name,bal);
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 }

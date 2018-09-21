@@ -181,7 +181,16 @@ public class Payroll {
 		Employee emp = employeeDB.get(empid);
 		bankAccountDB.delete(emp.getBankAccountID());
 		emp.setBankAccID(bankid);
-		bankAccountDB.add(new BankAccount(bankid, emp.getName()));
+		try {
+			if (bankAccountDB.find(bankid)) {
+				throw new Exception("Address already taken");
+			}
+			else
+				bankAccountDB.add(new BankAccount(bankid, emp.getName()));
+
+		}catch(Exception e) {
+			throw new IllegalArgumentException("Address already taken");
+		}
 	}
 	
 	private boolean istimeToPay(int time, int time2pay) {

@@ -20,7 +20,14 @@ public class BankAccountDB {
 	}
 	
 	public BankAccount get(String id) {
-		return mapAcc.get(id);
+		if (mapAcc.containsKey(id)){
+			return mapAcc.get(id);
+		}
+		return null;
+	}
+	
+	public boolean find(String id) {
+		return mapAcc.containsKey(id);
 	}
 	
 	public Collection<BankAccount> getAllBankAcc() {
