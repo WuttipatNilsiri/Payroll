@@ -9,14 +9,18 @@ public class Main {
 		
 		Command c = CommandParser.create("addEmp:name=Rinne1 id=1 address=1 type=H money=salary>10");
 		Command c1 = CommandParser.create("addEmp:name=Rinne2 id=2 address=2 type=H money=salary>100");
-		Command c2 = CommandParser.create("addEmp:name=Rinne3 id=3 address=3 type=C money=salary>10000,rate>10");
+		Command c2 = CommandParser.create("addEmp:name=Rinne3 id=3 address=3 type=C money=rate>10,salary>10000");
+		Command c3 = CommandParser.create("chgAdd:id=1 address=4");
 		c.exec();
 		c1.exec();
 		c2.exec();
+		c3.exec();
 		
 		employeeDB.get(3).sell();
 		employeeDB.get(3).sell();
 		employeeDB.get(3).sell();
+		
+		
 		Payroll.getSystem().run();
 		
 //		Payroll payroll = new Payroll();
@@ -36,7 +40,7 @@ public class Main {
 //		addEmpCMD.exec();
 //		
 //		Command ChgAddCMD = new ChageAdressTransaction();
-//		ChgAddCMD.input("id=1 address=5");
+//		ChgAddCMD.input("chgAdd:id=1 address=5");
 //		ChgAddCMD.exec();
 //		
 //		Command ChgEmpTypeCMD = new ChangeEmployeeType();

@@ -1,4 +1,5 @@
-
+import java.util.HashMap;
+import java.util.Map;
 
 public class Payroll {
 	
@@ -97,66 +98,105 @@ public class Payroll {
 		
 		String[] moneyStringSplit = moneystring.split(",");
 		
+		Map<String,Double> moneyMap = new HashMap<String,Double>();
 		
-		
-		
-		
-		
-		try {
-			double salary = 0.0;
-			
-			for (String x : moneyStringSplit) {
-				if (x.contains("salary")) {
-					salary = Double.parseDouble(x.replace("salary>", ""));
-					break;
-				}
-			}
-			
-			if (salary == 0.0) {
-				throw new Exception("not define salary");
-			}
-			
-			if (type == EmployeeType.Commissioned) {
-				double rate = 0;
-				try {
-					
-					for (String x : moneyStringSplit) {
-						if (x.contains("rate")) {
-							rate = Double.parseDouble(x.replace("rate>", ""));
-							break;
-						}
-					}
-					
-					if (rate == 0.0) {
-						throw new IllegalArgumentException("not define rate");
-					}
-					
-//					rate = Double.parseDouble(moneyStringSplit[1].replace("rate>",""));
-					return new CommissionedEmployeeTransaction(id, name, add, salary, rate);
-				
-				} catch(IllegalArgumentException e) {
-					throw e;
-				}
-			}
-			
-			if (type == EmployeeType.Salaried) {
-				if (salary == 0.0) {
-					throw new Exception("not define salary");
-				}
-				return new SalariedEmployeeTransaction(id, add, name, salary);
-			}
-			
-			if (type == EmployeeType.Hourly) {
-				if (salary == 0.0) {
-					throw new Exception("not define salary");
-				}
-				return new SalariedEmployeeTransaction(id, add, name, salary);
-			}
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-			throw new IllegalArgumentException("Arg not OK");
+		for (String x : moneyStringSplit) {
+			String[] spx = x.split(">");
+			moneyMap.put(spx[0], Double.parseDouble(spx[1]));
 		}
 		
+		double salary = 0.0;
+		
+		try {
+			salary =  moneyMap.get("salary");
+		}
+		catch(Exception e){
+			throw new IllegalArgumentException("not define salary");
+		}
+		
+		if (type == EmployeeType.Commissioned) {
+			
+			double rate = 0.0;
+			
+			try {
+				rate =  moneyMap.get("rate");
+			}
+			catch(Exception e){
+				throw new IllegalArgumentException("not define rate for Commissioned Employee");
+			}
+			
+			return new CommissionedEmployeeTransaction(id, name, add, salary, rate);	
+			
+		}
+		
+		if (type == EmployeeType.Salaried) {
+			return new SalariedEmployeeTransaction(id, add, name, salary);
+		}
+		
+		if (type == EmployeeType.Hourly) {
+			return new SalariedEmployeeTransaction(id, add, name, salary);
+		}
+		
+		
+		
+		
+		
+		
+//		try {
+//			double salary = 0.0;
+//			
+//			for (String x : moneyStringSplit) {
+//				if (x.contains("salary")) {
+//					salary = Double.parseDouble(x.replace("salary>", ""));
+//					break;
+//				}
+//			}
+//			
+//			if (salary == 0.0) {
+//				throw new Exception("not define salary");
+//			}
+//			
+//			if (type == EmployeeType.Commissioned) {
+//				double rate = 0;
+//				try {
+//					
+//					for (String x : moneyStringSplit) {
+//						if (x.contains("rate")) {
+//							rate = Double.parseDouble(x.replace("rate>", ""));
+//							break;
+//						}
+//					}
+//					
+//					if (rate == 0.0) {
+//						throw new IllegalArgumentException("not define rate");
+//					}
+//					
+////					rate = Double.parseDouble(moneyStringSplit[1].replace("rate>",""));
+//					return new CommissionedEmployeeTransaction(id, name, add, salary, rate);
+//				
+//				} catch(IllegalArgumentException e) {
+//					throw e;
+//				}
+//			}
+//			
+//			if (type == EmployeeType.Salaried) {
+//				if (salary == 0.0) {
+//					throw new Exception("not define salary");
+//				}
+//				return new SalariedEmployeeTransaction(id, add, name, salary);
+//			}
+//			
+//			if (type == EmployeeType.Hourly) {
+//				if (salary == 0.0) {
+//					throw new Exception("not define salary");
+//				}
+//				return new SalariedEmployeeTransaction(id, add, name, salary);
+//			}
+//		} catch(Exception e) {
+//			System.out.println(e.getMessage());
+//			throw new IllegalArgumentException("Arg not OK");
+//		}
+//		
 		
 		
 		

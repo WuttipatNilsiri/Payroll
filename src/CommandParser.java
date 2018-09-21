@@ -1,9 +1,7 @@
 
 
 public class CommandParser {
-	
-	
-	
+
 	public static Command create(String arg) {
 		String[ ] spedArg = arg.split(":");
 		if (spedArg[0].equals("addEmp")) {
