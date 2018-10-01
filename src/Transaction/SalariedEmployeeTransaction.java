@@ -1,3 +1,6 @@
+package Transaction;
+import Entity.Employee;
+import Entity.EmployeeType;
 
 public class SalariedEmployeeTransaction extends EmployeeTransaction {
 	
@@ -6,10 +9,12 @@ public class SalariedEmployeeTransaction extends EmployeeTransaction {
 	public SalariedEmployeeTransaction(int id, String address, String name, double salary) {
 		super(id, address, name);
 		this.salary = salary;
+		type = EmployeeType.Salaried;
 	}
 
 	@Override
 	public void Execute() {
-		bankDB.get( empDB.get(id).getBankAccountID() ).transMoney(salary);
+		Employee emp = empDB.get(id);
+		emp.getPaymentMethod().exec(emp.getaddress(),salary);
 	}
 }

@@ -1,10 +1,25 @@
+package System;
 import java.util.HashMap;
 import java.util.Map;
+
+import DB.AccountDB;
+import DB.EmployeeDB;
+import DB.PayrollDB;
+import Entity.Employee;
+import Entity.EmployeeType;
+import Lib.PaymentFilter;
+import Lib.Util;
+import Transaction.CommissionedEmployeeTransaction;
+import Transaction.HourlyEmployeeTransaction;
+import Transaction.SalariedEmployeeTransaction;
+import Transaction.Transaction;
+import Address.*;
+
 
 public class Payroll {
 	
 	private static PayrollDB payrollDB; 
-	private static BankAccountDB bankAccountDB;
+	private static AccountDB bankAccountDB;
 	private static EmployeeDB employeeDB;
 	
 	private static Payroll payrollSystem;
@@ -15,7 +30,7 @@ public class Payroll {
 	
 	public void build() {
 		if (payrollDB == null) payrollDB = PayrollDB.getDB();
-		if (bankAccountDB == null) bankAccountDB = BankAccountDB.getDB();
+		if (bankAccountDB == null) bankAccountDB = AccountDB.getDB();
 		if (employeeDB == null) employeeDB = EmployeeDB.getDB();
 	}
 	
@@ -47,7 +62,7 @@ public class Payroll {
 		payrollDB = db;
 	}
 	
-	public void setBankAccountDB(BankAccountDB db){
+	public void setBankAccountDB(AccountDB db){
 		bankAccountDB = db;
 	}
 	
@@ -67,7 +82,7 @@ public class Payroll {
 				}
 			}
 			
-			for (BankAccount acc : BankAccountDB.getDB().getAllBankAcc()) {
+			for (Address acc : AccountDB.getDB().getAllBankAcc()) {
 				System.out.println(acc.toString());
 			}
 			
@@ -82,17 +97,17 @@ public class Payroll {
 	}
 	
 	public void addEmployeeTransaction(int id, String name, String address,EmployeeType type, String money) {
-		BankAccount A_BankAcc = new BankAccount(address, name);
-		Employee A = new Employee(id, name, address);
-		A.setType(type);
-		bankAccountDB.add(A_BankAcc);
-		employeeDB.add(A);
-		payrollDB.addTransaction(createTransaction(A, money), type);
+		Employee emp = new Employee(id, name, address);
+		Address acc = Util.createby(emp);
+		emp.setType(type);
+		bankAccountDB.add(acc);
+		employeeDB.add(emp);
+		payrollDB.addTransaction(createTransaction(emp, money), type);
 	}
 	
 	private static Transaction createTransaction(Employee emp, String moneystring ) {
 		int id = emp.getID();
-		String add = emp.getBankAccountID();
+		String add = emp.getaddress();
 		String name = emp.getName();
 		EmployeeType type = emp.getType();
 		
@@ -134,7 +149,7 @@ public class Payroll {
 		}
 		
 		if (type == EmployeeType.Hourly) {
-			return new SalariedEmployeeTransaction(id, add, name, salary);
+			return new HourlyEmployeeTransaction(id, add, name, salary);
 		}
 		
 		
@@ -205,7 +220,7 @@ public class Payroll {
 	
 	public void deleteEmployee(int id) {
 		Employee emp = employeeDB.get(id);
-		bankAccountDB.delete(emp.getBankAccountID());
+		bankAccountDB.delete(emp.getaddress());
 		payrollDB.delete(emp.getType(), emp.getID());
 		employeeDB.delete(id);	
 	}
@@ -217,16 +232,17 @@ public class Payroll {
 		payrollDB.addTransaction(createTransaction(emp, money), type);
 	}
 	
-	public void changeAddressTransaction(int empid,String bankid) {
+	public void changeAddressTransaction(int empid,String address) {
 		Employee emp = employeeDB.get(empid);
-		bankAccountDB.delete(emp.getBankAccountID());
-		emp.setBankAccID(bankid);
+		bankAccountDB.delete(emp.getaddress());
+		emp.setaddress(address);
+		emp.setPaymentMethod(PaymentFilter.createby(address));
 		try {
-			if (bankAccountDB.find(bankid)) {
+			if (bankAccountDB.find(address)) {
 				throw new Exception("Address already taken");
 			}
 			else
-				bankAccountDB.add(new BankAccount(bankid, emp.getName()));
+				bankAccountDB.add(Util.createby(emp));
 
 		}catch(Exception e) {
 			throw new IllegalArgumentException("Address already taken");

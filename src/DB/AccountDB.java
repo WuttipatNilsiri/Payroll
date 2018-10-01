@@ -1,25 +1,30 @@
+package DB;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BankAccountDB {
+import Address.Address;
+
+
+
+public class AccountDB {
 	
-	private Map<String, BankAccount> mapAcc = new HashMap<String, BankAccount>();
+	private Map<String, Address> mapAcc = new HashMap<String,  Address>();
 	
-	private static BankAccountDB db = null;
+	private static AccountDB db = null;
 	
-	public static BankAccountDB getDB() {
+	public static AccountDB getDB() {
 		if(db == null) {
-			db = new BankAccountDB();
+			db = new AccountDB();
 		}
 		return db;
 	}
 	
-	public void add(BankAccount acc) {
+	public void add( Address acc) {
 		mapAcc.put(acc.getID(), acc);
 	}
 	
-	public BankAccount get(String id) {
+	public  Address get(String id) {
 		if (mapAcc.containsKey(id)){
 			return mapAcc.get(id);
 		}
@@ -30,7 +35,7 @@ public class BankAccountDB {
 		return mapAcc.containsKey(id);
 	}
 	
-	public Collection<BankAccount> getAllBankAcc() {
+	public Collection<Address> getAllBankAcc() {
 		return mapAcc.values();
 	}
 	

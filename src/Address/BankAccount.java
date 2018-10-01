@@ -1,9 +1,11 @@
+package Address;
 
-public class BankAccount {
+public class BankAccount implements Address {
 	
-	private String id;
-	private String name;
-	private double bal;
+	
+	protected String id;
+	protected String name;
+	protected double bal;
 	
 	public BankAccount(String id, String name){
 		this.id = id;
@@ -11,13 +13,13 @@ public class BankAccount {
 		bal = 0.0;
 	}
 	
-	public String getID() {
-		return id;
-	}
-	
+
 	public void transMoney(double amount) {
 		bal = bal + amount;
-//		System.out.println("id="+id+" " + bal);
+	}
+	
+	public String getID() {
+		return id;
 	}
 	
 	public double getBalance() {
@@ -28,11 +30,11 @@ public class BankAccount {
 		return name;
 	}
 	
-	public String toString() {
-		return String.format("bankid=%s name=%s bal=%.2f", id,name,bal);
-	}
-	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String toString() {
+		return String.format("bank-id=%s name=%s bal=%.2f", id,name,bal);
 	}
 }

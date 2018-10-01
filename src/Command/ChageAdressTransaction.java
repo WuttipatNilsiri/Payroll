@@ -1,5 +1,9 @@
+package Command;
 import java.util.HashMap;
 import java.util.Map;
+
+import Lib.Util;
+import System.Payroll;
 
 public class ChageAdressTransaction implements Command {
 
@@ -25,15 +29,15 @@ public class ChageAdressTransaction implements Command {
 			String[] arg = x.split("=");
 			mapInput.put(arg[0], arg[1]);
 		}
+		if (!isValid()) {
+			throw new IllegalArgumentException("Some Arg are missing");
+		}
 	}
 	
 	
 
 	
 	public void exec() {
-		if (!isValid()) {
-			throw new IllegalArgumentException("Some Arg are missing");
-		}
 		int empid = Integer.parseInt(mapInput.get("id"));	
 		String bankid = mapInput.get("address");
 		

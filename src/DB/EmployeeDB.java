@@ -1,5 +1,8 @@
+package DB;
 import java.util.HashMap;
 import java.util.Map;
+
+import Entity.Employee;
 
 public class EmployeeDB {
 	

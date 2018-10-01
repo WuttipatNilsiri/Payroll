@@ -1,24 +1,43 @@
 
+import java.time.LocalTime;
+
+import Command.Command;
+import DB.AccountDB;
+import DB.EmployeeDB;
+import DB.PayrollDB;
+import Entity.Sales;
+import Entity.TimeCard;
+import Lib.CommandParser;
+import System.Payroll;
+
 public class Main {
 	
 	static PayrollDB payrollDB = PayrollDB.getDB();
-	static BankAccountDB bankAccountDB = BankAccountDB.getDB();
+	static AccountDB bankAccountDB = AccountDB.getDB();
 	static EmployeeDB employeeDB = EmployeeDB.getDB();
 	
 	public static void main(String[] a ) {
 		
 		Command c = CommandParser.create("addEmp:name=Rinne1 id=1 address=1 type=H money=salary>10");
-		Command c1 = CommandParser.create("addEmp:name=Rinne2 id=2 address=2 type=H money=salary>100");
+		Command c1 = CommandParser.create("addEmp:name=Rinne2 id=2 address=aa@a.com type=H money=salary>100");
 		Command c2 = CommandParser.create("addEmp:name=Rinne3 id=3 address=3 type=C money=rate>10,salary>10000");
-		Command c3 = CommandParser.create("chgAdd:id=1 address=4");
+		Command c3 = CommandParser.create("chgAdd:id=1 address=b@b.com");
 		c.exec();
 		c1.exec();
 		c2.exec();
 		c3.exec();
 		
-		employeeDB.get(3).sell();
-		employeeDB.get(3).sell();
-		employeeDB.get(3).sell();
+		Sales s1 = new Sales();
+		s1.add("S","A","B");
+		
+		employeeDB.get(3).addsales(s1);
+		employeeDB.get(3).addsales(s1);
+		employeeDB.get(3).addsales(s1);
+		
+		employeeDB.get(1).addTimeCard(new TimeCard(LocalTime.of(12, 3), LocalTime.of(13, 3)));
+		employeeDB.get(2).addTimeCard(new TimeCard(LocalTime.of(12, 3), LocalTime.of(14, 3)));
+//		System.out.println(employeeDB.get(2).getHours());
+		
 		
 		
 		Payroll.getSystem().run();

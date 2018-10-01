@@ -1,3 +1,6 @@
+package Transaction;
+import Entity.Employee;
+import Entity.EmployeeType;
 
 public class CommissionedEmployeeTransaction extends EmployeeTransaction {
 	
@@ -9,12 +12,13 @@ public class CommissionedEmployeeTransaction extends EmployeeTransaction {
 		super(id, address, name);
 		this.salary = salary;
 		this.commissionRATE = commissionRATE;
+		type = EmployeeType.Commissioned;
 	}
 
 	@Override
 	public void Execute() {
 		Employee emp = empDB.get(id);
-		bankDB.get( emp.getBankAccountID() ).transMoney( salary + (emp.get_Num_Sell_Item() * commissionRATE) );
-		emp.reset_Num_Sell_Item();
+		emp.getPaymentMethod().exec(emp.getaddress(), salary + (emp.get_Num_Sell_Item() * commissionRATE));
+		emp.resetSales();
 	}
 }

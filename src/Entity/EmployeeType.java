@@ -1,10 +1,12 @@
+package Entity;
 
 public enum EmployeeType {
 	
 	Unknown(0),
 	Hourly(60),
 	Salaried(180),
-	Commissioned(180);
+	Commissioned(180),
+	Other(1);
 	
 	int time2pay;
 	
