@@ -34,13 +34,14 @@ public class Main {
 		employeeDB.get(3).addsales(s1);
 		employeeDB.get(3).addsales(s1);
 		
-		employeeDB.get(1).addTimeCard(new TimeCard(LocalTime.of(12, 3), LocalTime.of(13, 3)));
-		employeeDB.get(2).addTimeCard(new TimeCard(LocalTime.of(12, 3), LocalTime.of(14, 3)));
+		employeeDB.get(1).addTimeCard( TimeCard.create("20:15", "22:15") );
+		employeeDB.get(2).addTimeCard( TimeCard.create("20:15", "21:15") );
 //		System.out.println(employeeDB.get(2).getHours());
+//		System.out.println(employeeDB.get(1).getHours());
 		
 		
 		
-		Payroll.getSystem().run();
+//		Payroll.getSystem().run();
 		
 //		Payroll payroll = new Payroll();
 //		payroll.build();
