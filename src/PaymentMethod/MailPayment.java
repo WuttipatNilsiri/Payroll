@@ -9,7 +9,8 @@ public class MailPayment extends Payment {
 		if( db.get(address) instanceof MailAccount) {
 			MailAccount acc = (MailAccount) db.get(address);
 			acc.send(amount);
-		}
+		}else
+			throw new IllegalArgumentException("Address not match: need to be MailAccount");
 	}
 	
 }
