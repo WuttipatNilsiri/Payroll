@@ -1,5 +1,4 @@
 
-import java.time.LocalTime;
 
 import Command.Command;
 import DB.AccountDB;
@@ -8,7 +7,7 @@ import DB.PayrollDB;
 import Entity.Sales;
 import Entity.TimeCard;
 import Lib.CommandParser;
-import System.Payroll;
+
 
 public class Main {
 	
@@ -36,8 +35,8 @@ public class Main {
 		
 		employeeDB.get(1).addTimeCard( TimeCard.create("20:15", "22:15") );
 		employeeDB.get(2).addTimeCard( TimeCard.create("20:15", "21:15") );
-//		System.out.println(employeeDB.get(2).getHours());
-//		System.out.println(employeeDB.get(1).getHours());
+		System.out.println(employeeDB.get(2).getHours());
+		System.out.println(employeeDB.get(1).getHours());
 		
 		
 		

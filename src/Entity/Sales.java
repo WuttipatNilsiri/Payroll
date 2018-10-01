@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Sales {
 	
-	List<String> list = new ArrayList<String>();
+	private List<String> list = new ArrayList<String>();
 	
 	public void add(String... args) {
 		for (String s : args) {

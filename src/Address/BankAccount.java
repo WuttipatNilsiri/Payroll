@@ -3,9 +3,9 @@ package Address;
 public class BankAccount implements Address {
 	
 	
-	protected String id;
-	protected String name;
-	protected double bal;
+	private String id;
+	private String name;
+	private double bal;
 	
 	public BankAccount(String id, String name){
 		this.id = id;

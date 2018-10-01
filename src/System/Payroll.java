@@ -2,17 +2,10 @@ package System;
 import java.util.HashMap;
 import java.util.Map;
 
-import DB.AccountDB;
-import DB.EmployeeDB;
-import DB.PayrollDB;
-import Entity.Employee;
-import Entity.EmployeeType;
-import Lib.PaymentFilter;
-import Lib.Util;
-import Transaction.CommissionedEmployeeTransaction;
-import Transaction.HourlyEmployeeTransaction;
-import Transaction.SalariedEmployeeTransaction;
-import Transaction.Transaction;
+import DB.*;
+import Entity.*;
+import Lib.*;
+import Transaction.*;
 import Address.*;
 
 
@@ -98,7 +91,7 @@ public class Payroll {
 	
 	public void addEmployeeTransaction(int id, String name, String address,EmployeeType type, String money) {
 		Employee emp = new Employee(id, name, address);
-		Address acc = Util.createby(emp);
+		Address acc = Util.createAddress(emp);
 		emp.setType(type);
 		bankAccountDB.add(acc);
 		employeeDB.add(emp);
@@ -242,7 +235,7 @@ public class Payroll {
 				throw new Exception("Address already taken");
 			}
 			else
-				bankAccountDB.add(Util.createby(emp));
+				bankAccountDB.add(Util.createAddress(emp));
 
 		}catch(Exception e) {
 			throw new IllegalArgumentException("Address already taken");

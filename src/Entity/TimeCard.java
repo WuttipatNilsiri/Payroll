@@ -15,7 +15,7 @@ public class TimeCard {
 	}
 	
 	public int gethr() {
-		return lcend.getHour() - lcstart.getHour();
+		return new Double(lcend.getHour() + lcend.getMinute()/60.0 - (lcstart.getHour() + lcstart.getMinute()/60.0)).intValue();
 	}
 	
 	public static TimeCard create(String start,String end) {

@@ -52,7 +52,7 @@ public class Util {
 	  return true;  
 	}
 	
-	public static Address createby(Employee e) {
+	public static Address createAddress(Employee e) {
 		
 		if (e.getaddress().contains("@")) {
 			return new MailAccount(e.getaddress(),e.getName());
