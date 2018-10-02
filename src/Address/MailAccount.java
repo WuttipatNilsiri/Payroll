@@ -15,7 +15,7 @@ public class MailAccount implements Address {
 	}
 	@Override
 	public String toString() {
-		return String.format("mail-id=%s name=%s #mail=%d bal=%.2f", id,name,checks.size(),totalBal());
+		return String.format("mail-id=%s name=%s #mail=%d bal=%.2f", id,name,checks.size(),getBalance());
 	}
 	@Override
 	public String getID() {
@@ -27,11 +27,16 @@ public class MailAccount implements Address {
 		checks.add(in);
 	}
 	
-	public double totalBal() {
+	public double getBalance() {
 		double sum = 0;
 		for (double u : checks) {
 			sum = sum + u;
 		}
 		return sum;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
 }

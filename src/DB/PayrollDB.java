@@ -13,7 +13,7 @@ public class PayrollDB {
 	private Map<Integer,Transaction> listHourly = new HashMap<Integer,Transaction>();
 	private Map<Integer,Transaction> listSalaried = new HashMap<Integer,Transaction>();
 	
-	Map<EmployeeType, Map<Integer,Transaction> > mapQ = new HashMap<EmployeeType, Map<Integer,Transaction> >();
+	private Map<EmployeeType, Map<Integer,Transaction> > mapQ = new HashMap<EmployeeType, Map<Integer,Transaction> >();
 	
 	static PayrollDB db = null;
 	
@@ -58,6 +58,17 @@ public class PayrollDB {
 		return mapQ.keySet();
 		
 	}
+	
+	public Transaction getTransaction(EmployeeType type,int empid){
+		return mapQ.get(type).get(empid);
+		
+	}
+	
+	public Map<EmployeeType, Map<Integer,Transaction> > getMap(){
+		return mapQ ;
+	}
+	
+	
 	
 	
 	

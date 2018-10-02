@@ -42,4 +42,7 @@ public class AccountDB {
 	public void delete(String id) {
 		mapAcc.remove(id);
 	}
+	public void clear() {
+		mapAcc.clear();
+	}
 }

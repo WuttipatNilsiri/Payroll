@@ -1,6 +1,7 @@
 package Lib;
 import Command.AddEmployeeTransaction;
 import Command.ChageAdressTransaction;
+import Command.ChangeEmployeeDetail;
 import Command.ChangeEmployeeType;
 import Command.Command;
 import Command.DeleteEmployee;
@@ -26,6 +27,10 @@ public class CommandParser {
 		}
 		else if (spedArg[0].equals("chgEmp")) {
 			Command cmd = new ChangeEmployeeType();
+			cmd.input(spedArg[1]);
+			return cmd;
+		}else if (spedArg[0].equals("chgEmpDetail")) {
+			Command cmd = new ChangeEmployeeDetail();
 			cmd.input(spedArg[1]);
 			return cmd;
 		}

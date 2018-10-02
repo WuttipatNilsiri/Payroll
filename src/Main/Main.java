@@ -1,4 +1,4 @@
-
+package Main;
 
 import Command.Command;
 import DB.AccountDB;
@@ -18,18 +18,24 @@ public class Main {
 	
 	public static void main(String[] a ) {
 		
-		Command c = CommandParser.create("addEmp:name=Rinne1 id=1 address=1 type=H money=salary>10");
+//		Payroll p = Payroll.getSystem();
+		
+		Command c0 = CommandParser.create("addEmp:name=Rinne1 id=1 address=1 type=H money=salary>10");
 		Command c1 = CommandParser.create("addEmp:name=Rinne2 id=2 address=aa@a.com type=H money=salary>100");
 		Command c2 = CommandParser.create("addEmp:name=Rinne3 id=3 address=3 type=C money=rate>10,salary>10000");
-		Command c3 = CommandParser.create("chgAdd:id=1 address=b@b.com");
-		c.exec();
+		Command c3 = CommandParser.create("chgEmpDetail:id=2 address=b@b.com");
+		Command c4 = CommandParser.create("chgEmpDetail:id=3 address=z@z.com type=S money=salary>10000");
+		
+		c0.exec();
 		c1.exec();
 		c2.exec();
 		c3.exec();
+		c4.exec();
+		
 		
 		Sales s1 = new Sales();
 		s1.add("S","A","B");
-		
+//		System.out.println(employeeDB.get(3).getName());
 		employeeDB.get(3).addsales(s1);
 		employeeDB.get(3).addsales(s1);
 		employeeDB.get(3).addsales(s1);
